@@ -1,0 +1,9 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "configure", "type": "shell", "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug" },
+    { "label": "build", "type": "shell", "command": "cmake --build build", "dependsOn": "configure",
+      "group": { "kind": "build", "isDefault": true } },
+    { "label": "test", "type": "shell", "command": "ctest --test-dir build --output-on-failure", "dependsOn": "build" }
+  ]
+}

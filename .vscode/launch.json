@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug minicc on examples/sum_loop.mc",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/minicc",
+      "args": ["${workspaceFolder}/examples/sum_loop.mc", "--opt-ir", "--run"],
+      "cwd": "${workspaceFolder}",
+      "MIMode": "gdb",
+      "preLaunchTask": "build"
+    }
+  ]
+}
