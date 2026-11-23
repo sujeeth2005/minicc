@@ -6,10 +6,21 @@ A small, readable compiler for a C-like language. It goes all the way from sourc
 assembly for a virtual-register machine, and ships with an interpreter for that assembly so
 every stage can be tested end to end.
 
+```mermaid
+flowchart TB
+    subgraph FE["Front end"]
+        direction LR
+        SRC["Source<br/>.mc file"] --> LEX["Lexer<br/>tokens"] --> PAR["Parser<br/>AST"] --> SEM["Semantic analysis<br/>scopes, errors"]
+    end
+    subgraph BE["Middle and back end"]
+        direction LR
+        IR["IR generator<br/>three-address code"] --> OPT["Optimizer<br/>TAC to TAC, fixed point"] --> CG["Code generator<br/>virtual-register asm"] --> VM["VM<br/>executes the asm"]
+    end
+    SEM --> IR
 ```
-source ─► Lexer ─► Parser ─► Semantic ─► IR gen ─► Optimizer ─► Code gen ─► asm ─► VM
-          tokens    AST      analysis    3-address   TAC→TAC    registers
-```
+
+Every stage can be printed (`--tokens`, `--ast`, `--ir`, `--opt-ir`, `--asm`), and the test suite runs 1000 random
+programs at `-O0` and `-O1` and checks the VM returns the same value for both.
 
 ## Quick start
 
